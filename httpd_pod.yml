@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod
+  labels:
+     class: game
+spec:
+  containers:
+  - name: wolf3d
+    image: docker.io/ajinky03/wolf3d
