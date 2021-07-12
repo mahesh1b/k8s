@@ -3,6 +3,7 @@ kind: Service
 metadata:
         name: svc1
 spec:
+        type: NodePort
         selector:
                 class: web
         ports:
