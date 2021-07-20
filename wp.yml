@@ -26,4 +26,5 @@ spec:
         ports:
         - containerPort: 80
           name: wordpress
-
+#Create a NodePort service for WP 
+#kubectl expose deployment wordpress --port=8080 --target-port=80 --type=NodePort

@@ -25,3 +25,5 @@ spec:
         ports:
         - containerPort: 3306
           name: mysql
+#Create a service for mysql
+#kubectl expose deployment mysql --port=3306 --target-port=3306
