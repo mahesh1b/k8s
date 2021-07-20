@@ -1,0 +1,29 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    app: wp
+spec:
+  selector:
+    matchLabels:
+      app: wp
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: wp
+    spec:
+      containers:
+      - image: wordpress:latest
+        name: wordpress
+        env:
+        - name: WP_HOST
+          value: mysql
+        - name: WP_PASSWORD
+          value: redhat
+        ports:
+        - containerPort: 80
+          name: wordpress
+
