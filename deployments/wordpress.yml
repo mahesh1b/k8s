@@ -1,0 +1,51 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    app: wp
+spec:
+  selector:
+    matchLabels:
+      app: wp
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: wp
+    spec:
+      containers:
+      - image: wordpress:latest
+        name: wordpress
+        env:
+        - name: WP_HOST
+          valueFrom:
+            secretKeyRef:
+              key: host
+              name: wordpress
+        - name: WP_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: pass
+              name: wordpress
+        ports:
+        - containerPort: 80
+          name: wordpress
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wp-svc
+spec:
+  type: NodePort
+  selector:
+          app: wp
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
+      nodePort: 30123
+
+#  kubectl create secret generic wordpress --from-literal='host'='mysql' --from-literal='pass'='redhat'

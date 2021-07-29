@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sise-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sise
+  template:
+    metadata:
+      labels:
+        app: sise
+    spec:
+      containers:
+      - name: sise
+        image: docker.io/httpd
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apache-service
+spec:
+  type: ClusterIP
+  selector:
+          app: sise
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
