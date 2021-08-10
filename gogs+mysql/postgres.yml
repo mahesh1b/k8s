@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:10.4
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgredb
+            - name: foo
+              mountPath: "/etc/foo"
+              readOnly: true
+      volumes:
+        - name: postgredb
+          persistentVolumeClaim:
+            claimName: pv-claim1
+        - name: foo
+          secret:
+            secretName: psql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: psql-svc
+  labels:
+    app: postgres
+spec:
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  selector:
+   app: postgres
