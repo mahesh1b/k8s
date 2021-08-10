@@ -1,0 +1,9 @@
+#Steps for postgres with gogs 
+
+1. First make sure that nfs server is runninng with /nfs folder shared.
+2. Create a PersistentVolume and PersistentVolumeClaim with pv.yml file.(kubectl create -f pv.yml)
+3. Create a k8s secret with secret.txt file to store the postgres credentials.(kubectl create secret generic psql --from-file=secret.txt).
+4. Creaet a postgres deployment and service with postgres.yml file.(kubectl create -f postgres.yml)
+5. Creaet a gogs deployment and service with gogs.yml file.(kubectl create -f gogs.yml)
+
+Now gogs should be accessible from this <node-ip>:30123 
