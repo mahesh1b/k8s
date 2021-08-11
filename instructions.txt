@@ -1,0 +1,9 @@
+#Steps for postgres with gogs 
+
+1. First make sure that nfs server is runninng with /nfs(for wordpress) and /mysql(for mysql) folders shared.
+2. Create a PersistentVolume and PersistentVolumeClaim with mysql-pv.yml file for mysql deployment.(kubectl create -f mysql-pv.yml)
+3. Create a PersistentVolume and PersistentVolumeClaim with wp-pv.yml file for wordpress deployment.(kubectl create -f wp-pv.yml)
+4. Creaet a wordpress deployment, service and secret with postgres.yml file.(kubectl create -f mysql.yml)
+5. Creaet a gogs deployment, service and secret with wordpress.yml file.(kubectl create -f wordpress.yml)
+
+Now wordpress should be accessible from this <node-ip>:30123 
