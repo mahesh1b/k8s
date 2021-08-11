@@ -1,4 +1,4 @@
-#Steps for postgres with gogs 
+#Steps for mysql with wordpress
 
 1. First make sure that nfs server is runninng with /nfs(for wordpress) and /mysql(for mysql) folders shared.
 2. Create a PersistentVolume and PersistentVolumeClaim with mysql-pv.yml file for mysql deployment.(kubectl create -f mysql-pv.yml)
